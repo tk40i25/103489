@@ -17,28 +17,6 @@
             color: #FFD700;
             padding: 1em 0;
             text-align: center;
-            position: relative;
-        }
-        header h1::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: #FFD700;
-            margin: 0.5em auto 0;
-            border-radius: 2px;
-        }
-        nav {
-            background: #333;
-            color: #FFD700;
-            padding: 0.5em 0;
-            text-align: center;
-        }
-        nav a {
-            color: #FFD700;
-            margin: 0 1em;
-            text-decoration: none;
-            font-weight: bold;
         }
         .container {
             width: 90%;
@@ -84,7 +62,7 @@
             border-radius: 4px;
         }
         .verified::before {
-            content: '\2714'; /* Checkmark symbol */
+            content: "✔"; /* Corrected checkmark symbol */
             margin-right: 0.3em;
         }
         .price {
@@ -161,32 +139,6 @@
             const chatWindow = document.querySelector('.chat-window');
             chatWindow.style.display = 'block';
         }
-        function handleChatInput(event) {
-            if (event.key === 'Enter') {
-                const input = event.target;
-                const message = input.value;
-                const messages = document.querySelector('.chat-window .messages');
-
-                if (message.trim() !== '') {
-                    const userMessage = `<p><strong>You:</strong> ${message}</p>`;
-                    messages.innerHTML += userMessage;
-
-                    setTimeout(() => {
-                        let reply = '';
-                        if (message.includes('available')) {
-                            reply = "Yes, it's available. When and where do you want to meet?";
-                        } else if (message.includes('meet')) {
-                            reply = "Great! Let's meet at Zhong Nan Street, 3:30.";
-                        }
-                        const ownerMessage = `<p><strong>Owner:</strong> ${reply}</p>`;
-                        messages.innerHTML += ownerMessage;
-                        messages.scrollTop = messages.scrollHeight;
-                    }, 1000);
-
-                    input.value = '';
-                }
-            }
-        }
     </script>
 </head>
 <body>
@@ -195,15 +147,9 @@
     <h1>daisY</h1>
 </header>
 
-<nav>
-    <a href="#">Visit Us</a>
-    <a href="#">Contact</a>
-    <a href="#">Our Vision</a>
-</nav>
-
 <div class="container">
     <div class="item" onclick="toggleDetails(event)">
-        <img src="https://via.placeholder.com/150/0000FF/808080?Text=T-Shirt" alt="T-shirt">
+        <img src="images/t-shirt.png" alt="T-shirt">
         <div class="item-info">
             <div class="item-title">
                 Basic White T-Shirt
@@ -218,7 +164,7 @@
         </div>
     </div>
     <div class="item" onclick="toggleDetails(event)">
-        <img src="https://via.placeholder.com/150/FF0000/FFFFFF?Text=Jeans" alt="Jeans">
+        <img src="images/jeans.png" alt="Jeans">
         <div class="item-info">
             <div class="item-title">
                 Slim Fit Jeans
@@ -240,7 +186,7 @@
         <p><strong>User:</strong> Hi, is this available?</p>
         <p><strong>Owner:</strong> Yes, it is!</p>
     </div>
-    <input type="text" placeholder="Type a message..." onkeypress="handleChatInput(event)">
+    <input type="text" placeholder="Type a message...">
 </div>
 
 <footer>
