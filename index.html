@@ -62,7 +62,7 @@
             border-radius: 4px;
         }
         .verified::before {
-            content: "✔"; /* Corrected checkmark symbol */
+            content: "✔";
             margin-right: 0.3em;
         }
         .price {
@@ -139,6 +139,34 @@
             const chatWindow = document.querySelector('.chat-window');
             chatWindow.style.display = 'block';
         }
+        function sendMessage(event) {
+            if (event.key === 'Enter') {
+                const input = event.target;
+                const message = input.value.trim();
+                if (message) {
+                    const messagesDiv = document.querySelector('.chat-window .messages');
+                    const userMessage = `<p><strong>You:</strong> ${message}</p>`;
+                    messagesDiv.innerHTML += userMessage;
+
+                    // Simulate owner's response
+                    setTimeout(() => {
+                        let response = '';
+                        if (message.toLowerCase().includes('available')) {
+                            response = 'Yes it\'s available. When and where do you want to meet?';
+                        } else if (message.toLowerCase().includes('meet')) {
+                            response = 'Sure! Zhong Nan Street, 3:30 works for me.';
+                        } else {
+                            response = 'Let me know if you have other questions.';
+                        }
+                        const ownerMessage = `<p><strong>Owner:</strong> ${response}</p>`;
+                        messagesDiv.innerHTML += ownerMessage;
+                        messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll to the latest message
+                    }, 1000);
+
+                    input.value = ''; // Clear the input field
+                }
+            }
+        }
     </script>
 </head>
 <body>
@@ -163,30 +191,12 @@
             <a href="#" class="chat-button" onclick="openChat()">Start Chat</a>
         </div>
     </div>
-    <div class="item" onclick="toggleDetails(event)">
-        <img src="images/jeans.png" alt="Jeans">
-        <div class="item-info">
-            <div class="item-title">
-                Slim Fit Jeans
-                <span class="verified">Verified</span>
-            </div>
-            <div class="price">Rental Fee: $8/day</div>
-        </div>
-        <div class="details">
-            <p>Size: 32</p>
-            <p>Material: Denim</p>
-            <a href="#" class="chat-button" onclick="openChat()">Start Chat</a>
-        </div>
-    </div>
 </div>
 
 <div class="chat-window">
     <header>Chat</header>
-    <div class="messages">
-        <p><strong>User:</strong> Hi, is this available?</p>
-        <p><strong>Owner:</strong> Yes, it is!</p>
-    </div>
-    <input type="text" placeholder="Type a message...">
+    <div class="messages"></div>
+    <input type="text" placeholder="Type a message..." onkeypress="sendMessage(event)">
 </div>
 
 <footer>
